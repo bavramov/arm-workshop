@@ -1,19 +1,39 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "storageAccount": {
+           "type": "string",
+           "metadata": {
+                "description": "bavramovsa2"
+            }
+        },
+        "accountType": {
+           "type": "string",
+           "defaultValue": "Standard_LRS",
+           "allowedValues": [
+               "Standard_LRS",
+               "Premium_LRS",
+               "Standard_RAGRS"
+
+           ],
+           "metadata": {
+                "description": "SKU for the storage account"
+            }
+        }
+    },
     "variables": {},
     "resources": [
         {
-            "name": "bavramovstgacct",
+            "name": "[parameters('storageAccount')]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
             "tags": {
-                "displayName": "bavramovstgacct"
+                "displayName": "[parameters('storageAccount')]"
             },
             "properties": {
-                "accountType": "Standard_LRS"
+                "accountType": "[parameters('storageAccount')]"
             }
         }
     ],
